@@ -11,5 +11,9 @@ public abstract class AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-    abstract void openPage();
+    public void openPage(){
+        driver.get(getHomePageUrl());
+    }
+
+    abstract String getHomePageUrl();
 }
