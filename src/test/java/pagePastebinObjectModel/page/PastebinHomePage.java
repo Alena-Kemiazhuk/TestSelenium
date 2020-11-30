@@ -22,10 +22,50 @@ public class PastebinHomePage extends AbstractPage {
     private WebElement searchButton;
 
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
-    private String textForAdd;
+
 
     public PastebinHomePage(WebDriver driver) {
         super(driver);
+    }
+
+    public WebElement getSearchInputText() {
+        return searchInputText;
+    }
+
+    public void setSearchInputText(WebElement searchInputText) {
+        this.searchInputText = searchInputText;
+    }
+
+    public WebElement getSearchList() {
+        return searchList;
+    }
+
+    public void setSearchList(WebElement searchList) {
+        this.searchList = searchList;
+    }
+
+    public WebElement getSearchListSyntax() {
+        return searchListSyntax;
+    }
+
+    public void setSearchListSyntax(WebElement searchListSyntax) {
+        this.searchListSyntax = searchListSyntax;
+    }
+
+    public WebElement getSearchInputName() {
+        return searchInputName;
+    }
+
+    public void setSearchInputName(WebElement searchInputName) {
+        this.searchInputName = searchInputName;
+    }
+
+    public WebElement getSearchButton() {
+        return searchButton;
+    }
+
+    public void setSearchButton(WebElement searchButton) {
+        this.searchButton = searchButton;
     }
 
     public void openPage() {

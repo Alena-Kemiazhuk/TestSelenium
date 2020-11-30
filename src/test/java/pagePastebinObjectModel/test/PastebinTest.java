@@ -26,6 +26,7 @@ public class PastebinTest {
 
     @Test
     public void test1() {
+        homePage.getSearchInputText().sendKeys("snkjchskd");
         homePage.addText("Hello from WebDriver");
         homePage.clickList();
         homePage.clickListElement("//*[@class='select2-container select2-container--default select2-container--open']//ul/li[text()='10 Minutes']");
