@@ -17,8 +17,8 @@ public class PastebinHomeService {
     public void createPaste(String inputText, String selectValue,String language, String name) {
         page.getSearchInputText().sendKeys(inputText);
         page.getSearchList().click();
-        page.getExpirationSelect().selectByValue(selectValue);
-        page.getPostformSelect().selectByValue(language);
+        page.chooseExpirationSelect(selectValue);
+        page.chooseSyntax(language);
         page.getSearchInputName().sendKeys(name);
         page.getSearchButton().click();
     }
@@ -26,7 +26,7 @@ public class PastebinHomeService {
     public void createPaste(String inputText, String selectValue, String name) {
         page.getSearchInputText().sendKeys(inputText);
         page.getSearchList().click();
-        page.getExpirationSelect().selectByValue(selectValue);
+        page.chooseExpirationSelect(selectValue);
         page.getSearchInputName().sendKeys(name);
         page.getSearchButton().click();
     }

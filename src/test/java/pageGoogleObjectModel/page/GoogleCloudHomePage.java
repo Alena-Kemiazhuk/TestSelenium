@@ -14,13 +14,12 @@ import java.util.List;
 public class GoogleCloudHomePage extends AbstractPage {
 
     @FindBy(xpath = "//*[@class='devsite-search-field devsite-search-query']")
-    private WebElement searchButtonSearch;
+    private WebElement buttonForSearch;
 
-    private String textForAdd;
-    @FindBy(css = "[id*='suggestion-partial-query']")
-    private List<WebElement> searchResults;
+    @FindBy(css = "[id*='suggestion-product']")
+    private List<WebElement> searchResultsOfSearch;
 
-    private static final String HOMEPAGE_URL = "https://cloud.google.com/";
+    private final static String HOMEPAGE_URL = "https://cloud.google.com/";
 
     public GoogleCloudHomePage(WebDriver driver) {
         super(driver);
@@ -30,20 +29,12 @@ public class GoogleCloudHomePage extends AbstractPage {
         driver.get(HOMEPAGE_URL);
     }
 
-    public void chooseNthOption(int number) {
-        getSearchResults().get(number + 1).click();
+    @Override
+    String getHomePageUrl() {
+        return HOMEPAGE_URL;
     }
 
-    public void clickSearchButtonSearch() {
-        searchButtonSearch.click();
-    }
-
-    public void addTextInButtonSearch(String textForAdd) {
-        searchButtonSearch.sendKeys(textForAdd);
-    }
-
-    public SearchCalculatorPage clickButtonSearch(String xpath) {
-        driver.findElement(By.xpath(xpath)).click();
-        return new SearchCalculatorPage(driver);
+    public void chooseOneOption(int number) {
+        searchResultsOfSearch.get(number - 1).click();
     }
 }

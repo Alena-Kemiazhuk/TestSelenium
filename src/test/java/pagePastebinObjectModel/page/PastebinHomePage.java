@@ -1,6 +1,8 @@
 package pagePastebinObjectModel.page;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,11 +21,12 @@ public class PastebinHomePage extends AbstractPage {
     @FindBy(xpath = "//*[@id='select2-postform-format-container']")
     private WebElement searchListSyntax;
 
-    @FindBy(id = "postform-expiration")
-    private Select expirationSelect;
+    @FindBy(id = "select2-postform-expiration-container")
+    private WebElement expirationSelect;
 
-    @FindBy(id = "postform-format")
-    private Select postformSelect;
+    @FindBy(css = "[id = 'postform-format']+span")
+    private WebElement postformSelect;
+
 
     @FindBy(xpath = "//*[@id='postform-name']")
     private WebElement searchInputName;
@@ -41,4 +44,19 @@ public class PastebinHomePage extends AbstractPage {
     String getHomePageUrl() {
         return HOMEPAGE_URL;
     }
+
+    @SneakyThrows
+    public void chooseExpirationSelect(String nameElement){
+        expirationSelect.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath(String.format("//li[text()='%s']",nameElement))).click();
+    }
+
+    @SneakyThrows
+    public void chooseSyntax(String nameElement){
+        postformSelect.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath(String.format("//li[text()='%s']",nameElement))).click();
+    }
+
 }

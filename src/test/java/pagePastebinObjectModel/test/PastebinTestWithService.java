@@ -14,7 +14,7 @@ public class PastebinTestWithService {
     @Before
     public void beforeAllTests() {
         homePageService = new PastebinHomeService(new ChromeDriver());
-        searchCalculatorService = new SearchCalculatorService(new ChromeDriver());
+//        searchCalculatorService = new SearchCalculatorService(new ChromeDriver());
         homePageService.getPage().openPage();
     }
 

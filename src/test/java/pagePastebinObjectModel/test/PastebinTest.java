@@ -1,5 +1,6 @@
 package pagePastebinObjectModel.test;
 
+import lombok.SneakyThrows;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,11 +30,12 @@ public class PastebinTest {
     public void test1() {
         homePage.getSearchInputText().sendKeys("Hello from WebDriver");
         homePage.getSearchList().click();
-        homePage.getExpirationSelect().selectByValue("10M");
+        homePage.chooseExpirationSelect("10 Minutes");
         homePage.getSearchInputName().sendKeys("helloweb");
         homePage.getSearchButton().click();
     }
 
+    @SneakyThrows
     @Test
     public void test2() {
         var inputText = "git config --global user.name  \"New Sheriff in Town\"\n" + "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
@@ -42,11 +44,11 @@ public class PastebinTest {
         var language = "Bash";
         homePage.getSearchInputText().sendKeys(inputText);
         homePage.getSyntaxHighlightingLabel().click();
-        homePage.getPostformSelect().selectByValue(language);
-        homePage.getSearchButton().click();
-        homePage.getExpirationSelect().selectByValue("10M");
+        homePage.chooseSyntax(language);
+        homePage.chooseExpirationSelect("10 Minutes");
         homePage.getSearchInputName().sendKeys(name);
         homePage.getSearchButton().click();
+        Thread.sleep(3000);
 
         var actualName = searchCalculatorPage.getHeaderName().getText();
         var actualLanguage = searchCalculatorPage.getSelectedLanguage().getText();
@@ -57,9 +59,9 @@ public class PastebinTest {
 
     }
 
-    @After
-    public void afterAllTests() {
-        driver.quit();
-    }
+//    @After
+//    public void afterAllTests() {
+//        driver.quit();
+//    }
 }
 

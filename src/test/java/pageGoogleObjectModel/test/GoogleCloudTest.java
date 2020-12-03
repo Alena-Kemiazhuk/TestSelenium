@@ -1,19 +1,35 @@
 package pageGoogleObjectModel.test;
 
+import lombok.*;
+import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageGoogleObjectModel.page.GoogleCloudHomePage;
+import pageGoogleObjectModel.service.GoogleCalculatorService;
+import pageGoogleObjectModel.service.GoogleCloudHomeService;
 
 public class GoogleCloudTest {
+    GoogleCloudHomeService googleCloudHomePageService;
+    GoogleCalculatorService googleCalculatorPageService;
 
-    @Test
-    public void test1() {
-        WebDriver driver = new ChromeDriver();
-        GoogleCloudHomePage homePage = new GoogleCloudHomePage(driver);
-        homePage.openPage();
-        homePage.clickSearchButtonSearch();
-        homePage.addTextInButtonSearch("Google Cloud Platform Pricing Calculator");
-        homePage.clickButtonSearch("//a[contains(text(), 'google cloud')]");
+    @Before
+    public void beforeAllTests() {
+        googleCloudHomePageService = new GoogleCloudHomeService(new ChromeDriver());
+        googleCloudHomePageService.getGoogleCloudHomePage().openPage();
+        googleCalculatorPageService = new GoogleCalculatorService(googleCloudHomePageService.getDriver());
     }
+
+
+    @SneakyThrows
+    @Test
+    public void testGoogleCloud() {
+        var inputTextForSearch = "Google Cloud Platform Pricing Calculator";
+        googleCloudHomePageService.goToCalculatorPage(inputTextForSearch);
+        Thread.sleep(7000);
+        googleCalculatorPageService.googleCalculatorFilling();
+
+
+    }
+
 }
