@@ -2,52 +2,69 @@ package pageGoogleObjectModel.page;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pageGoogleObjectModel.service.GoogleCalculatorService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 
 public class GoogleCalculatorPage extends AbstractPage {
 
     @FindBy(xpath = "//input[@name='quantity']")
-    private WebElement NumberOfInstances;
+    private WebElement numberOfInstances;
+
+    @FindBy(xpath = "//*[@ng-model='listingCtrl.computeServer.class']")
+    private WebElement machineClass;
 
     @FindBy(xpath = "//*[@class= 'md-text ng-binding']")
     private WebElement listSeries;
 
-    @FindBy(xpath = "//*[@class= 'ng-scope md-ink-ripple' and @value='n1']")
-    private WebElement series;
-
     @FindBy(xpath = "//*[@placeholder= 'Instance type']")
     private WebElement listMachineType;
 
-    @FindBy(xpath = "//*[@class='ng-scope md-ink-ripple' and @value='CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-8']")
-    private WebElement machineType;
-
-    @FindBy(xpath = "//md-checkbox[@ng-model = 'listingCtrl.computeServer.addGPUs']")
-    private WebElement buttonForAddGPUs;
+    @FindBy(xpath = "//*[@ng-model='listingCtrl.computeServer.addGPUs']")
+    private WebElement buttonAddGpus;
 
     @FindBy(xpath = "//*[@placeholder= 'Number of GPUs']")
     private WebElement listNumbersOfGroups;
 
-    @FindBy(xpath = "//*//*[@ng-disabled='item.value != 0 && item.value < listingCtrl.minGPU' and @value='1']")
-    private WebElement numberOfGroups;
-
     @FindBy(xpath = "//*[@placeholder= 'GPU type']")
     private WebElement listTypesOfGpu;
-
-    @FindBy(xpath = "//*[@class= 'ng-scope md-ink-ripple' and @value='NVIDIA_TESLA_V100']")
-    private WebElement gpuType;
 
     @FindBy(xpath = "//*[@placeholder= 'Local SSD']")
     private WebElement listLocalsSsd;
 
-    @FindBy(xpath = "//*[@class= 'ng-scope md-ink-ripple' and @value='2' and @ng-repeat='item in listingCtrl.supportedSsd']")
-    private WebElement localSsd;
+    @FindBy(xpath = "//*[@placeholder= 'Datacenter location']")
+    private WebElement listDatacentersLocations;
 
-    private By firstIframe = By.cssSelector("[src*='/products/calculator/']");
+    @FindBy(xpath = "//*[@placeholder= 'Committed usage']")
+    private WebElement listCommittedUsage;
+
+    @FindBy(xpath = "//*[@class='md-raised md-primary cpc-button md-button md-ink-ripple']")
+    private WebElement buttonAddedToEstimate;
+
+    @FindBy(xpath = "//*[@class='md-select-menu-container md-active md-clickable']//md-option")
+    private List<WebElement> selectOptions;
+
+    @FindBy(xpath = "//md-list/md-list-item/div")
+    private List<WebElement> actData;
+
+    @FindBy(xpath = "//h2/b[@class='ng-binding']")
+    private WebElement actualTotalEstimatedCost;
+
+    @FindBy(xpath = "//*[@layout-align='space-between start']/button[@aria-label = 'Email Estimate']")
+    private WebElement buttonEmailEstimate;
+
+    @FindBy(xpath = "//label[contains(text(),'Email')]")
+    private WebElement fieldForMailAddress;
+
+    private final By firstIframe = By.cssSelector("[src*='/products/calculator/']");
 
     public GoogleCalculatorPage(WebDriver driver) {
         super(driver);
@@ -58,32 +75,77 @@ public class GoogleCalculatorPage extends AbstractPage {
         return null;
     }
 
-    public void openIframe(){
+    public void openIframe() {
         driver.switchTo().frame(driver.findElement(firstIframe));
         driver.switchTo().frame("myFrame");
     }
 
-    public void setValueInFieldNumberOfInstances(String numberOfInstance){
-        openIframe();
-        NumberOfInstances.sendKeys(numberOfInstance);
+    public void closeIframe() {
         driver.switchTo().defaultContent();
+    }
+
+    public void setValueInField(WebElement element, String numberOfInstance) {
+        openIframe();
+        element.sendKeys(numberOfInstance);
+        closeIframe();
+    }
+
+    public void clickButton(WebElement element) {
+        openIframe();
+        element.click();
+        closeIframe();
     }
 
     @SneakyThrows
-    public void chooseValueInField(WebElement listOfElements, WebElement element){
-        openIframe();
-        listOfElements.click();
-        Thread.sleep(2000);
-        element.click();
-        driver.switchTo().defaultContent();
-    }
-
-    public void clickButton(WebElement element){
+    public void selectByName(WebElement element, String name) {
         openIframe();
         element.click();
-        driver.switchTo().defaultContent();
+        closeIframe();
+        timeOut(10, "//*[@class='md-select-menu-container md-active md-clickable']//md-option");
+        openIframe();
+        getSelectOptions().stream().filter(item -> item.getText().contains(name)).findFirst().get().click();
+        closeIframe();
     }
 
+    public boolean actualDataFromEstimate(String data) {
+        openIframe();
+        var actualData = driver.findElements(By.xpath("//md-list/md-list-item/div"));
+        var result = actualData.stream().anyMatch(item -> item.getText().contains(data));
+            closeIframe();
+            return result;
+    }
+
+    public String calculatedTotalEstimatedCost() {
+        openIframe();
+        String actualTotalEstimatedCost = getActualTotalEstimatedCost().getText();
+        closeIframe();
+        return actualTotalEstimatedCost;
+    }
+
+    public void timeOut(int timeInSeconds, String xpath){
+        openIframe();
+        new WebDriverWait(driver, timeInSeconds).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(xpath)));
+        closeIframe();
+    }
+
+    @SneakyThrows
+    public void pasteEmailAddress(WebElement fieldForAddress, GoogleCalculatorService h){
+        openIframe();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", fieldForAddress);
+//        Thread.sleep(3000);
+        fieldForAddress.sendKeys(Keys.PAGE_UP);
+//        Actions ddd = new Actions(driver);
+//        ddd.
+//        Thread.sleep(3000);
+//        fieldForAddress.sendKeys(Keys.PAGE_UP);
+//        fieldForAddress.click();
+//        fieldForAddress.sendKeys(Keys.ADD);
+        closeIframe();
+    }
 
 
 }
+
+
+
+

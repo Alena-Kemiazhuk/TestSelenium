@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pagePastebinObjectModel.page.SearchCalculatorPage;
 
 import java.util.List;
@@ -35,6 +38,8 @@ public class GoogleCloudHomePage extends AbstractPage {
     }
 
     public void chooseOneOption(int number) {
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[id*='suggestion-product']"))).get(number - 1);
         searchResultsOfSearch.get(number - 1).click();
     }
+
 }
