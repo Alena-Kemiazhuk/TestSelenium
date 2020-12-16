@@ -1,5 +1,4 @@
 package pageGoogleObjectModel.page;
-import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import pageGoogleObjectModel.driver.DriverSingleton;

@@ -1,8 +1,7 @@
 package pagePastebinObjectModel.test;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import pagePastebinObjectModel.service.PastebinHomeService;
 import pagePastebinObjectModel.service.SearchCalculatorService;
 
@@ -11,7 +10,7 @@ public class PastebinTestWithService {
     PastebinHomeService homePageService;
     SearchCalculatorService searchCalculatorService;
 
-    @BeforeAll
+    @BeforeClass
     public void beforeAllTests() {
         homePageService = new PastebinHomeService(new ChromeDriver());
 //        searchCalculatorService = new SearchCalculatorService(new ChromeDriver());

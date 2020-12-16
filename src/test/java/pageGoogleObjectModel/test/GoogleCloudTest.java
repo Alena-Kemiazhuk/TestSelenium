@@ -1,9 +1,9 @@
 package pageGoogleObjectModel.test;
 import lombok.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import pageGoogleObjectModel.Model.CalculatorData;
 import pageGoogleObjectModel.driver.DriverSingleton;
 import pageGoogleObjectModel.service.CalculatorDataCreator;
@@ -11,7 +11,9 @@ import pageGoogleObjectModel.service.GoogleCalculatorService;
 import pageGoogleObjectModel.service.GoogleCloudHomeService;
 import pageGoogleObjectModel.service.GoogleMailService;
 import util.RegexUtils;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.testng.AssertJUnit.assertEquals;
+
 
 @Getter
 
@@ -26,7 +28,7 @@ public class GoogleCloudTest {
     String realCost = "Total Estimated Cost: USD 1,082.77 per 1 month";
     String regex = "\\s\\d.+?\\d$|\\s\\d.+?\\d\\s";
 
-    @BeforeEach
+    @BeforeMethod
     public void beforeAllCalculatorTests() {
 //        driver = new ChromeDriver();
         driver = DriverSingleton.getDriver();
@@ -38,7 +40,7 @@ public class GoogleCloudTest {
 //        calculatorData = new CalculatorData("Google Cloud Platform Pricing Calculator", "regular", "n1-standard-8", "Frankfurt", "2x375", "1 Year");
     }
 
-    @BeforeEach
+    @BeforeMethod
     public void beforeTest() {
         googleCloudHomePageService.
                 goToCalculatorPage(inputTextForSearch);
@@ -59,6 +61,7 @@ public class GoogleCloudTest {
         String totalCostFromEstimate = regexUtils.getCostForCompare(googleCalculatorPageService.getTotalCostFromEstimate(), regex);
         assertEquals(totalCostFromEstimate, totalCostFromEmail);
     }
+
 
 //    @SneakyThrows
 //    @Test

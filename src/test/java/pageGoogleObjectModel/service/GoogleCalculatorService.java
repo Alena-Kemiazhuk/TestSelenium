@@ -1,11 +1,12 @@
 package pageGoogleObjectModel.service;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pageGoogleObjectModel.Model.CalculatorData;
 import pageGoogleObjectModel.page.GoogleCalculatorPage;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.testng.AssertJUnit.assertEquals;
 
 
 @Getter
@@ -39,11 +40,11 @@ public class GoogleCalculatorService {
     }
 
     public void checkEnteredActualData(String enteredVmClass, String enteredInstanceType, String enteredRegion, String enteredSsd, String enteredCommitmentTerm) {
-        Assertions.assertTrue(calculatorPage.actualDataFromEstimate(enteredVmClass));
-        Assertions.assertTrue(calculatorPage.actualDataFromEstimate(enteredInstanceType));
-        Assertions.assertTrue(calculatorPage.actualDataFromEstimate(enteredRegion));
-        Assertions.assertTrue(calculatorPage.actualDataFromEstimate(enteredSsd));
-        Assertions.assertTrue(calculatorPage.actualDataFromEstimate(enteredCommitmentTerm));
+        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredVmClass));
+        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredInstanceType));
+        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredRegion));
+        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredSsd));
+        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredCommitmentTerm));
     }
 
     public void comparisonCalculatedAndRealCosts(String realCost) {

@@ -1,18 +1,18 @@
 package pageGoogleObjectModel.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chromium.ChromiumDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.BeforeClass;
 
 public class DriverSingleton {
     private static WebDriver driver;
 
     private DriverSingleton(){}
 
-    @BeforeAll
+    @BeforeClass
     public static WebDriver getDriver(){
         if (null == driver){
             switch (System.getProperty("browser")){
