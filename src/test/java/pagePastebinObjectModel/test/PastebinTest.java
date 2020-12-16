@@ -1,15 +1,14 @@
 package pagePastebinObjectModel.test;
 
 import lombok.SneakyThrows;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pagePastebinObjectModel.page.PastebinHomePage;
 import pagePastebinObjectModel.page.SearchCalculatorPage;
 
-import static org.junit.Assert.assertEquals;
 
 
 public class PastebinTest {
@@ -18,7 +17,7 @@ public class PastebinTest {
     SearchCalculatorPage searchCalculatorPage;
     WebDriver driver;
 
-    @Before
+    @BeforeAll
     public void beforeAllTests() {
         driver = new ChromeDriver();
         homePage = new PastebinHomePage(driver);
@@ -53,9 +52,9 @@ public class PastebinTest {
         var actualName = searchCalculatorPage.getHeaderName().getText();
         var actualLanguage = searchCalculatorPage.getSelectedLanguage().getText();
         var actualTextArea = searchCalculatorPage.getTextArea().getText();
-        assertEquals(actualName, name);
-        assertEquals(actualLanguage, language);
-        assertEquals(actualTextArea, inputText);
+        Assertions.assertEquals(actualName, name);
+        Assertions.assertEquals(actualLanguage, language);
+        Assertions.assertEquals(actualTextArea, inputText);
 
     }
 

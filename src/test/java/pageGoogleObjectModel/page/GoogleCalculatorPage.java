@@ -7,13 +7,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageGoogleObjectModel.service.GoogleCalculatorService;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-
 public class GoogleCalculatorPage extends AbstractPage {
 
     @FindBy(xpath = "//input[@name='quantity']")
@@ -53,7 +49,7 @@ public class GoogleCalculatorPage extends AbstractPage {
     private List<WebElement> selectOptions;
 
     @FindBy(xpath = "//md-list/md-list-item/div")
-    private List<WebElement> actData;
+    private List<WebElement> actualData;
 
     @FindBy(xpath = "//h2/b[@class='ng-binding']")
     private WebElement actualTotalEstimatedCost;
@@ -61,10 +57,14 @@ public class GoogleCalculatorPage extends AbstractPage {
     @FindBy(xpath = "//*[@layout-align='space-between start']/button[@aria-label = 'Email Estimate']")
     private WebElement buttonEmailEstimate;
 
-    @FindBy(xpath = "//label[contains(text(),'Email')]")
+    @FindBy(xpath = "//input[@type='email']")
     private WebElement fieldForMailAddress;
 
+    @FindBy(xpath = "//*[@class='md-raised md-primary cpc-button md-button md-ink-ripple' and @aria-label ='Send Email']")
+    private WebElement buttonSendEmail;
+
     private final By firstIframe = By.cssSelector("[src*='/products/calculator/']");
+    private final String xpathSelectOptions = "//*[@class='md-select-menu-container md-active md-clickable']//md-option";
 
     public GoogleCalculatorPage(WebDriver driver) {
         super(driver);
@@ -90,18 +90,18 @@ public class GoogleCalculatorPage extends AbstractPage {
         closeIframe();
     }
 
+
     public void clickButton(WebElement element) {
         openIframe();
         element.click();
         closeIframe();
     }
 
-    @SneakyThrows
     public void selectByName(WebElement element, String name) {
         openIframe();
         element.click();
         closeIframe();
-        timeOut(10, "//*[@class='md-select-menu-container md-active md-clickable']//md-option");
+        timeOut(10, xpathSelectOptions);
         openIframe();
         getSelectOptions().stream().filter(item -> item.getText().contains(name)).findFirst().get().click();
         closeIframe();
@@ -109,7 +109,6 @@ public class GoogleCalculatorPage extends AbstractPage {
 
     public boolean actualDataFromEstimate(String data) {
         openIframe();
-        var actualData = driver.findElements(By.xpath("//md-list/md-list-item/div"));
         var result = actualData.stream().anyMatch(item -> item.getText().contains(data));
             closeIframe();
             return result;
@@ -119,6 +118,7 @@ public class GoogleCalculatorPage extends AbstractPage {
         openIframe();
         String actualTotalEstimatedCost = getActualTotalEstimatedCost().getText();
         closeIframe();
+        System.out.println(actualTotalEstimatedCost);
         return actualTotalEstimatedCost;
     }
 
@@ -129,20 +129,16 @@ public class GoogleCalculatorPage extends AbstractPage {
     }
 
     @SneakyThrows
-    public void pasteEmailAddress(WebElement fieldForAddress, GoogleCalculatorService h){
+    public void pasteEmailAddress(WebElement fieldForAddress){
         openIframe();
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", fieldForAddress);
-//        Thread.sleep(3000);
         fieldForAddress.sendKeys(Keys.PAGE_UP);
-//        Actions ddd = new Actions(driver);
-//        ddd.
-//        Thread.sleep(3000);
-//        fieldForAddress.sendKeys(Keys.PAGE_UP);
-//        fieldForAddress.click();
-//        fieldForAddress.sendKeys(Keys.ADD);
+        Actions builder = new Actions(driver);
+        builder.keyDown( Keys.CONTROL).perform();
+        builder.sendKeys("v").perform();
+        builder.keyUp(Keys.CONTROL).perform();
         closeIframe();
     }
-
 
 }
 

@@ -1,60 +1,72 @@
 package pageGoogleObjectModel.test;
-
 import lombok.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageGoogleObjectModel.page.GoogleMailPage;
+import pageGoogleObjectModel.Model.CalculatorData;
+import pageGoogleObjectModel.driver.DriverSingleton;
+import pageGoogleObjectModel.service.CalculatorDataCreator;
 import pageGoogleObjectModel.service.GoogleCalculatorService;
 import pageGoogleObjectModel.service.GoogleCloudHomeService;
+import pageGoogleObjectModel.service.GoogleMailService;
+import util.RegexUtils;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Getter
 
 public class GoogleCloudTest {
     GoogleCloudHomeService googleCloudHomePageService;
     GoogleCalculatorService googleCalculatorPageService;
-    GoogleMailPage googleMailPage;
+    GoogleMailService googleMailService;
+    RegexUtils regexUtils;
     WebDriver driver;
+//    CalculatorData calculatorData;
+    String inputTextForSearch = "Google Cloud Platform Pricing Calculator";
+    String realCost = "Total Estimated Cost: USD 1,082.77 per 1 month";
+    String regex = "\\s\\d.+?\\d$|\\s\\d.+?\\d\\s";
 
-    @Before
-    public void beforeAllTests() {
-        googleCloudHomePageService = new GoogleCloudHomeService(new ChromeDriver());
+    @BeforeEach
+    public void beforeAllCalculatorTests() {
+//        driver = new ChromeDriver();
+        driver = DriverSingleton.getDriver();
+        googleCloudHomePageService = new GoogleCloudHomeService(driver);
         googleCloudHomePageService.getGoogleCloudHomePage().openPage();
-        googleCalculatorPageService = new GoogleCalculatorService(googleCloudHomePageService.getDriver());
-        googleMailPage = new GoogleMailPage(googleCloudHomePageService.getDriver());
+        googleCalculatorPageService = new GoogleCalculatorService(driver);
+        googleMailService = new GoogleMailService(driver);
+        regexUtils = new RegexUtils(driver);
+//        calculatorData = new CalculatorData("Google Cloud Platform Pricing Calculator", "regular", "n1-standard-8", "Frankfurt", "2x375", "1 Year");
+    }
+
+    @BeforeEach
+    public void beforeTest() {
+        googleCloudHomePageService.
+                goToCalculatorPage(inputTextForSearch);
+        googleCalculatorPageService.
+                getCalculatorPage().
+                timeOut(10, googleCalculatorPageService.getXpathNumberOfInstances());
+        googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData()).
+                calculateEstimate();
     }
 
     @SneakyThrows
     @Test
-    public void sendEmailTest(){
-        testGoogleCloud();
+    public void sendEmailTest() {
         googleCalculatorPageService.emailEstimate();
-        googleMailPage.copyMailAddress(googleCalculatorPageService);
-        googleCalculatorPageService.sendEstimateOnEmail(googleCalculatorPageService);
-
-
-
-
-
+        googleMailService.copyMailAddress();
+        googleCalculatorPageService.sendEstimateOnEmail();
+        String totalCostFromEmail = regexUtils.getCostForCompare(googleMailService.getTotalCostFromSentEmail(), regex);
+        String totalCostFromEstimate = regexUtils.getCostForCompare(googleCalculatorPageService.getTotalCostFromEstimate(), regex);
+        assertEquals(totalCostFromEstimate, totalCostFromEmail);
     }
 
-    @SneakyThrows
-    @Test
-    public void testGoogleCloud() {
-        var inputTextForSearch = "Google Cloud Platform Pricing Calculator";
-        String enteredVmClass = "regular";
-        String enteredInstanceType = "n1-standard-8";
-        String enteredRegion = "Frankfurt";
-        String enteredSsd = "2x375 GB";
-        String enteredCommitmentTerm = "1 Year";
-        String realCost = "Total Estimated Cost: USD 1,082.77 per 1 month";
-        googleCloudHomePageService.goToCalculatorPage(inputTextForSearch);
-        googleCalculatorPageService.getCalculatorPage().timeOut(10, "//input[@name='quantity']");
-        googleCalculatorPageService.googleCalculatorFilling(enteredInstanceType, enteredRegion, enteredSsd, enteredCommitmentTerm).calculateEstimate();
-        googleCalculatorPageService.checkEnteredActualData(enteredVmClass, enteredInstanceType, enteredRegion, enteredSsd, enteredCommitmentTerm);
-        googleCalculatorPageService.comparisonCalculatedAndRealCosts(realCost);
-    }
+//    @SneakyThrows
+//    @Test
+//    public void testGoogleCloudCalculator() {
+//        googleCalculatorPageService.checkEnteredActualData(calculatorData.getEnteredVmClass(), calculatorData.getEnteredInstanceType(), calculatorData.getEnteredRegion(), calculatorData.getEnteredSsd(), calculatorData.getEnteredCommitmentTerm());
+//        googleCalculatorPageService.comparisonCalculatedAndRealCosts(realCost);
+//    }
+
 
 
 //    @After

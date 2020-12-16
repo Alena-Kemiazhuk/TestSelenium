@@ -1,7 +1,6 @@
 package pagePastebinObjectModel.test;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pagePastebinObjectModel.bills.PasteCreatorBill;
 
@@ -9,7 +8,7 @@ import pagePastebinObjectModel.bills.PasteCreatorBill;
 public class PastebinTestWithBill {
     PasteCreatorBill pasteCreatorBill;
 
-    @Before
+    @BeforeAll
     public void beforeAllTests() {
         pasteCreatorBill = new PasteCreatorBill(new ChromeDriver());
         pasteCreatorBill.getPastebinHomeService().getPage().openPage();

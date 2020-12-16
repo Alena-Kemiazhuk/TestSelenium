@@ -1,10 +1,9 @@
 package pagePastebinObjectModel.service;
 
 import lombok.Getter;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import pagePastebinObjectModel.page.SearchCalculatorPage;
-
-import static org.junit.Assert.assertEquals;
 
 @Getter
 public class SearchCalculatorService {
@@ -20,12 +19,12 @@ public class SearchCalculatorService {
         var actualLanguage = page.getSelectedLanguage().getText();
         var actualTextArea = page.getTextArea().getText();
         checkName(name);
-        assertEquals(actualLanguage, language);
-        assertEquals(actualTextArea, inputText);
+        Assertions.assertEquals(actualLanguage, language);
+        Assertions.assertEquals(actualTextArea, inputText);
     }
 
     public void checkName(String expectedName) {
-        assertEquals(expectedName, page.getHeaderName().getText());
+        Assertions.assertEquals(expectedName, page.getHeaderName().getText());
     }
 
 }
