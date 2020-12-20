@@ -1,4 +1,4 @@
-package util;
+package pageGoogleObjectModel.util;
 
 import org.openqa.selenium.WebDriver;
 

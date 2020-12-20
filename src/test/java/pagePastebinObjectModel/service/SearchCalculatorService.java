@@ -1,6 +1,5 @@
 package pagePastebinObjectModel.service;
 import lombok.Getter;
-import org.asynchttpclient.util.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pagePastebinObjectModel.page.SearchCalculatorPage;

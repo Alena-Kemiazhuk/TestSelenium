@@ -3,34 +3,34 @@ package pageGoogleObjectModel.driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chromium.ChromiumDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.BeforeClass;
 
 public class DriverSingleton {
     private static WebDriver driver;
 
-    private DriverSingleton(){}
+    private DriverSingleton() {
+    }
 
-    @BeforeClass
-    public static WebDriver getDriver(){
-        if (null == driver){
-            switch (System.getProperty("browser")){
+
+    public static WebDriver getDriver() {
+        if (null == driver) {
+            switch (System.getProperty("browser")) {
                 case "firefox": {
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
+                    break;
                 }
                 default: {
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
+                    driver.manage().window().maximize();
                 }
             }
-            driver.manage().window().maximize();
         }
         return driver;
     }
 
-    public static void closeDriver(){
+    public static void closeDriver() {
         driver.quit();
         driver = null;
     }

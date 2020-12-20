@@ -2,11 +2,8 @@ package pageGoogleObjectModel.service;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import pageGoogleObjectModel.Model.CalculatorData;
 import pageGoogleObjectModel.page.GoogleCalculatorPage;
-
-import static org.testng.AssertJUnit.assertEquals;
 
 
 @Getter
@@ -20,7 +17,6 @@ public class GoogleCalculatorService {
     }
 
     @SneakyThrows
- //   public GoogleCalculatorService googleCalculatorFilling(String enteredInstanceType, String enteredRegion, String enteredSsd, String enteredCommitmentTerm) {
 
     public GoogleCalculatorService googleCalculatorFilling(CalculatorData data){
         calculatorPage.setValueInField(calculatorPage.getNumberOfInstances(), data.getNumberOfInstances());
@@ -39,17 +35,17 @@ public class GoogleCalculatorService {
         calculatorPage.clickButton(calculatorPage.getButtonAddedToEstimate());
     }
 
-    public void checkEnteredActualData(String enteredVmClass, String enteredInstanceType, String enteredRegion, String enteredSsd, String enteredCommitmentTerm) {
-        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredVmClass));
-        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredInstanceType));
-        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredRegion));
-        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredSsd));
-        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredCommitmentTerm));
-    }
-
-    public void comparisonCalculatedAndRealCosts(String realCost) {
-        assertEquals(realCost, calculatorPage.calculatedTotalEstimatedCost());
-    }
+//    public void checkEnteredActualData(String enteredVmClass, String enteredInstanceType, String enteredRegion, String enteredSsd, String enteredCommitmentTerm) {
+//        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredVmClass));
+//        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredInstanceType));
+//        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredRegion));
+//        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredSsd));
+//        Assert.assertTrue(calculatorPage.actualDataFromEstimate(enteredCommitmentTerm));
+//    }
+//
+//    public void comparisonCalculatedAndRealCosts(String realCost) {
+//        assertEquals(realCost, calculatorPage.calculatedTotalEstimatedCost());
+//    }
 
     public void emailEstimate() {
         calculatorPage.clickButton(calculatorPage.getButtonEmailEstimate());

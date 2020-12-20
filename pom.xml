@@ -17,27 +17,30 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <suiteXmlFiles>
-                        <xmlFile>src/main/java/util/timeout.xml</xmlFile> <!--change it before every merge request-->
-                    </suiteXmlFiles>
-                </configuration>
+                <version>2.22.1</version>
+
+                <!--                <configuration>-->
+                <!--                    <suiteXmlFiles>-->
+                <!--                        <suiteXmlFile>src/main/java/util/sendEmail.xml</suiteXmlFile>-->
+                <!--                    </suiteXmlFiles>-->
+                <!--                </configuration>-->
             </plugin>
         </plugins>
     </build>
-<!--    <properties>-->
-<!--        <java.version>10</java.version>-->
-<!--    </properties>-->
     <groupId>org.example</groupId>
     <artifactId>TestSelenium</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>GitHubAutomation</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <!--         https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.0.0-alpha-7</version>
+            <version>3.141.0</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -45,16 +48,11 @@
             <version>4.2.2</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.junit.jupiter</groupId>-->
-<!--            <artifactId>junit-jupiter-engine</artifactId>-->
-<!--            <version>5.5.2</version>-->
-<!--        </dependency>-->
-                <dependency>
-                    <groupId>org.testng</groupId>
-                    <artifactId>testng</artifactId>
-                    <version>6.14.3</version>
-                </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version>
+        </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
@@ -67,10 +65,27 @@
             <version>2.6</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>2.4.16</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
+

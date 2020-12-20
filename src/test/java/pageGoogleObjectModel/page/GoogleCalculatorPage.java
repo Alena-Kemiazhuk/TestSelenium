@@ -2,11 +2,14 @@ package pageGoogleObjectModel.page;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 
 @Getter
@@ -65,6 +68,7 @@ public class GoogleCalculatorPage extends AbstractPage {
 
     private final By firstIframe = By.cssSelector("[src*='/products/calculator/']");
     private final String xpathSelectOptions = "//*[@class='md-select-menu-container md-active md-clickable']//md-option";
+    private final Logger logger = LogManager.getRootLogger();
 
     public GoogleCalculatorPage(WebDriver driver) {
         super(driver);
@@ -118,7 +122,7 @@ public class GoogleCalculatorPage extends AbstractPage {
         openIframe();
         String actualTotalEstimatedCost = getActualTotalEstimatedCost().getText();
         closeIframe();
-        System.out.println(actualTotalEstimatedCost);
+        logger.info("Actual Total Estimated Cost = " + actualTotalEstimatedCost);
         return actualTotalEstimatedCost;
     }
 

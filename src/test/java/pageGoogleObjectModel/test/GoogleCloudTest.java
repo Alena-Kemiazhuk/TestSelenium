@@ -1,59 +1,52 @@
 package pageGoogleObjectModel.test;
-import lombok.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeMethod;
+
+import lombok.Getter;
+import lombok.SneakyThrows;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageGoogleObjectModel.Model.CalculatorData;
 import pageGoogleObjectModel.driver.DriverSingleton;
 import pageGoogleObjectModel.service.CalculatorDataCreator;
 import pageGoogleObjectModel.service.GoogleCalculatorService;
 import pageGoogleObjectModel.service.GoogleCloudHomeService;
 import pageGoogleObjectModel.service.GoogleMailService;
-import util.RegexUtils;
+import pageGoogleObjectModel.util.RegexUtils;
+import pageGoogleObjectModel.util.TestListener;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-
+@Listeners({TestListener.class})
 @Getter
-
 public class GoogleCloudTest {
     GoogleCloudHomeService googleCloudHomePageService;
     GoogleCalculatorService googleCalculatorPageService;
     GoogleMailService googleMailService;
-    RegexUtils regexUtils;
     WebDriver driver;
-//    CalculatorData calculatorData;
+    RegexUtils regexUtils;
     String inputTextForSearch = "Google Cloud Platform Pricing Calculator";
-    String realCost = "Total Estimated Cost: USD 1,082.77 per 1 month";
+//    String realCost = "Total Estimated Cost: USD 1,082.77 per 1 month";
     String regex = "\\s\\d.+?\\d$|\\s\\d.+?\\d\\s";
 
-    @BeforeMethod
+    @BeforeClass
     public void beforeAllCalculatorTests() {
-//        driver = new ChromeDriver();
         driver = DriverSingleton.getDriver();
-        googleCloudHomePageService = new GoogleCloudHomeService(driver);
-        googleCloudHomePageService.getGoogleCloudHomePage().openPage();
-        googleCalculatorPageService = new GoogleCalculatorService(driver);
-        googleMailService = new GoogleMailService(driver);
-        regexUtils = new RegexUtils(driver);
-//        calculatorData = new CalculatorData("Google Cloud Platform Pricing Calculator", "regular", "n1-standard-8", "Frankfurt", "2x375", "1 Year");
-    }
-
-    @BeforeMethod
-    public void beforeTest() {
-        googleCloudHomePageService.
-                goToCalculatorPage(inputTextForSearch);
-        googleCalculatorPageService.
-                getCalculatorPage().
-                timeOut(10, googleCalculatorPageService.getXpathNumberOfInstances());
-        googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData()).
-                calculateEstimate();
     }
 
     @SneakyThrows
     @Test
     public void sendEmailTest() {
+        googleCloudHomePageService = new GoogleCloudHomeService(driver);
+        googleCloudHomePageService.getGoogleCloudHomePage().openPage();
+        googleCalculatorPageService = new GoogleCalculatorService(driver);
+        googleMailService = new GoogleMailService(driver);
+        regexUtils = new RegexUtils(driver);
+        googleCloudHomePageService.goToCalculatorPage(inputTextForSearch);
+        googleCalculatorPageService.getCalculatorPage().
+                timeOut(10, googleCalculatorPageService.getXpathNumberOfInstances());
+        googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData()).
+                calculateEstimate();
         googleCalculatorPageService.emailEstimate();
         googleMailService.copyMailAddress();
         googleCalculatorPageService.sendEstimateOnEmail();
@@ -62,19 +55,26 @@ public class GoogleCloudTest {
         assertEquals(totalCostFromEstimate, totalCostFromEmail);
     }
 
+    @AfterClass
+    public void closeBrowser(){
+       DriverSingleton.closeDriver();
+    }
+
 
 //    @SneakyThrows
 //    @Test
 //    public void testGoogleCloudCalculator() {
+//    googleCloudHomePageService = new GoogleCloudHomeService(driver);
+//        googleCloudHomePageService.getGoogleCloudHomePage().openPage();
+//    googleCalculatorPageService = new GoogleCalculatorService(driver);
+//    googleMailService = new GoogleMailService(driver);
+//    regexUtils = new RegexUtils(driver);
+//        googleCloudHomePageService.goToCalculatorPage(inputTextForSearch);
+//        googleCalculatorPageService.getCalculatorPage().timeOut(10, googleCalculatorPageService.getXpathNumberOfInstances());
+//        googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData()).calculateEstimate();
 //        googleCalculatorPageService.checkEnteredActualData(calculatorData.getEnteredVmClass(), calculatorData.getEnteredInstanceType(), calculatorData.getEnteredRegion(), calculatorData.getEnteredSsd(), calculatorData.getEnteredCommitmentTerm());
 //        googleCalculatorPageService.comparisonCalculatedAndRealCosts(realCost);
 //    }
 
-
-
-//    @After
-//    public void afterAllTests(){
-//        driver.quit();
-//    }
 
 }

@@ -1,6 +1,8 @@
 package pageGoogleObjectModel.service;
 
 import lombok.SneakyThrows;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import pageGoogleObjectModel.page.GoogleMailPage;
 
@@ -9,6 +11,7 @@ public class GoogleMailService {
     WebDriver driver;
     GoogleMailPage mailPage;
     private final String xpathMailMassage = "//*[@class='message_top']";
+    private final Logger logger = LogManager.getRootLogger();
 
     public GoogleMailService(WebDriver driver) {
         this.driver = driver;
@@ -28,7 +31,7 @@ public class GoogleMailService {
         mailPage.clickElement(mailPage.getMailMessage());
         String totalCostFromMail = mailPage.getTotalEstimatedCostMail().getText();
         mailPage.goOut();
-        System.out.println(totalCostFromMail);
+        logger.info("Total cost from email = " + totalCostFromMail);
         return totalCostFromMail;
     }
 }
