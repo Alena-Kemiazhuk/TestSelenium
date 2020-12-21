@@ -52,7 +52,7 @@ public class TestListener implements ITestListener {
                 .getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenCapture, new File(
-                    "c:/data/lab/TestSelenium/target/screenshots/"
+                    "/TestSelenium/target/screenshots/"
                             + getCurrentTimeAsString() +
                             ".png"));
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
