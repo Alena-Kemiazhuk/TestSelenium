@@ -21,8 +21,7 @@ public class GoogleCalculatorPage extends AbstractPage {
     @FindBy(xpath = "//*[@ng-model='listingCtrl.computeServer.class']")
     private WebElement machineClass;
 
-//    @FindBy(xpath = "//*[@class= 'md-text ng-binding']")
-    @FindBy(xpath = "//*[@placeholder='Series']")
+    @FindBy(xpath = "//*[@class= 'md-text ng-binding']")
     private WebElement listSeries;
 
     @FindBy(xpath = "//*[@placeholder= 'Instance type']")
