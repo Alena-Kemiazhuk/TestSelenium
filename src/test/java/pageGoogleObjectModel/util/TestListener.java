@@ -18,7 +18,6 @@ public class TestListener implements ITestListener {
     private final Logger log = LogManager.getRootLogger();
 
     public void onTestStart(ITestResult iTestResult) {
-        log.info(iTestResult.getTestName()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
     }
 
@@ -56,6 +55,7 @@ public class TestListener implements ITestListener {
                     "c:/data/lab/TestSelenium/target/screenshots/"
                             + getCurrentTimeAsString() +
                             ".png"));
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         } catch (IOException e) {
             log.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }
