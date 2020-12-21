@@ -45,8 +45,8 @@ public class GoogleCloudTest {
         googleCloudHomePageService.goToCalculatorPage(inputTextForSearch);
         googleCalculatorPageService.getCalculatorPage().
                 timeOut(30, googleCalculatorPageService.getXpathNumberOfInstances());
-        googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData()).
-                calculateEstimate();
+        googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData());
+        googleCalculatorPageService.calculateEstimate();
         googleCalculatorPageService.emailEstimate();
         googleMailService.copyMailAddress();
         googleCalculatorPageService.sendEstimateOnEmail();
