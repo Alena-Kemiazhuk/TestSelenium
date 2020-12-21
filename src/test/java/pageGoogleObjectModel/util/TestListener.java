@@ -18,6 +18,7 @@ public class TestListener implements ITestListener {
     private final Logger log = LogManager.getRootLogger();
 
     public void onTestStart(ITestResult iTestResult) {
+        log.info(iTestResult.getTestName()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
     }
 

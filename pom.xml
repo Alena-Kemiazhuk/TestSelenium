@@ -19,11 +19,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
 
-                <!--                <configuration>-->
-                <!--                    <suiteXmlFiles>-->
-                <!--                        <suiteXmlFile>src/main/java/util/sendEmail.xml</suiteXmlFile>-->
-                <!--                    </suiteXmlFiles>-->
-                <!--                </configuration>-->
+                                <configuration>
+                                    <suiteXmlFiles>
+                                        <suiteXmlFile>${project.basedir}/src/main/java/util/${suiteXmlFile}</suiteXmlFile>
+                                    </suiteXmlFiles>
+                                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -33,6 +33,7 @@
     <name>GitHubAutomation</name>
     <url>http://maven.apache.org</url>
     <properties>
+        <suiteXmlFile>sendEmail.xml</suiteXmlFile>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
