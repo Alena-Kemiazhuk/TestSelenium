@@ -97,7 +97,6 @@ public class GoogleCalculatorPage extends AbstractPage {
 
     public void clickButton(WebElement element) {
         openIframe();
-        timeOut(10, "//input[@name='quantity");
         element.click();
         closeIframe();
     }
