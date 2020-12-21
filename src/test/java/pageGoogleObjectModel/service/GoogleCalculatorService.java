@@ -19,9 +19,7 @@ public class GoogleCalculatorService {
     @SneakyThrows
 
     public GoogleCalculatorService googleCalculatorFilling(CalculatorData data){
-        Thread.sleep(5000);
         calculatorPage.setValueInField(calculatorPage.getNumberOfInstances(), data.getNumberOfInstances());
-        Thread.sleep(5000);
         calculatorPage.selectByName(calculatorPage.getListSeries(), data.getSeries());
         calculatorPage.selectByName(calculatorPage.getListMachineType(), data.getInstanceType());
         calculatorPage.clickButton(calculatorPage.getButtonAddGpus());

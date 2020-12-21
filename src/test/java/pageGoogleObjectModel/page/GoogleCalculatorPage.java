@@ -21,8 +21,8 @@ public class GoogleCalculatorPage extends AbstractPage {
     @FindBy(xpath = "//*[@ng-model='listingCtrl.computeServer.class']")
     private WebElement machineClass;
 
-//    @FindBy(xpath = "//*[@class= 'md-text ng-binding']")
-    @FindBy(xpath = "//*[@placeholder='Series']")
+    @FindBy(xpath = "//*[@class= 'md-text ng-binding']")
+//    @FindBy(xpath = "//*[@placeholder='Series']")
     private WebElement listSeries;
 
     @FindBy(xpath = "//*[@placeholder= 'Instance type']")
@@ -98,7 +98,6 @@ public class GoogleCalculatorPage extends AbstractPage {
 
     public void clickButton(WebElement element) {
         openIframe();
-        timeOut(10, "//input[@name='quantity");
         element.click();
         closeIframe();
     }
