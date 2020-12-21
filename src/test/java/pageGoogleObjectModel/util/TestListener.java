@@ -55,7 +55,6 @@ public class TestListener implements ITestListener {
                     "c:/data/lab/TestSelenium/target/screenshots/"
                             + getCurrentTimeAsString() +
                             ".png"));
-            System.out.println("!!!!!!rrrrrrr!!!!!!!");
         } catch (IOException e) {
             log.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }

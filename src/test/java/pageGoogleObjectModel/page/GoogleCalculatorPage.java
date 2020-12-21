@@ -21,7 +21,8 @@ public class GoogleCalculatorPage extends AbstractPage {
     @FindBy(xpath = "//*[@ng-model='listingCtrl.computeServer.class']")
     private WebElement machineClass;
 
-    @FindBy(xpath = "//*[@class= 'md-text ng-binding']")
+//    @FindBy(xpath = "//*[@class= 'md-text ng-binding']")
+    @FindBy(xpath = "//*[@placeholder='Series']")
     private WebElement listSeries;
 
     @FindBy(xpath = "//*[@placeholder= 'Instance type']")
@@ -111,12 +112,12 @@ public class GoogleCalculatorPage extends AbstractPage {
         closeIframe();
     }
 
-    public boolean actualDataFromEstimate(String data) {
-        openIframe();
-        var result = actualData.stream().anyMatch(item -> item.getText().contains(data));
-            closeIframe();
-            return result;
-    }
+//    public boolean actualDataFromEstimate(String data) {
+//        openIframe();
+//        var result = actualData.stream().anyMatch(item -> item.getText().contains(data));
+//            closeIframe();
+//            return result;
+//    }
 
     public String calculatedTotalEstimatedCost() {
         openIframe();

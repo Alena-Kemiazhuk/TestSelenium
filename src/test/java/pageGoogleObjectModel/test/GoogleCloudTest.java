@@ -3,7 +3,6 @@ package pageGoogleObjectModel.test;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -55,10 +54,10 @@ public class GoogleCloudTest {
         assertEquals(totalCostFromEstimate, totalCostFromEmail);
     }
 
-    @AfterClass
-    public void closeBrowser(){
-       DriverSingleton.closeDriver();
-    }
+//    @AfterClass
+//    public void closeBrowser(){
+//       DriverSingleton.closeDriver();
+//    }
 
 
 //    @SneakyThrows
