@@ -36,6 +36,7 @@ public class GoogleCloudTest {
     @SneakyThrows
     @Test
     public void sendEmailTest() {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         googleCloudHomePageService = new GoogleCloudHomeService(driver);
         googleCloudHomePageService.getGoogleCloudHomePage().openPage();
         googleCalculatorPageService = new GoogleCalculatorService(driver);
@@ -43,7 +44,7 @@ public class GoogleCloudTest {
         regexUtils = new RegexUtils(driver);
         googleCloudHomePageService.goToCalculatorPage(inputTextForSearch);
         googleCalculatorPageService.getCalculatorPage().
-                timeOut(10, googleCalculatorPageService.getXpathNumberOfInstances());
+                timeOut(30, googleCalculatorPageService.getXpathNumberOfInstances());
         googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData()).
                 calculateEstimate();
         googleCalculatorPageService.emailEstimate();

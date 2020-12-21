@@ -27,7 +27,7 @@ public class GoogleMailService {
     @SneakyThrows
     public String getTotalCostFromSentEmail(){
         mailPage.backToMailPage();
-        mailPage.timeOut(300, xpathMailMassage);
+        mailPage.timeOut(3, xpathMailMassage);
         mailPage.clickElement(mailPage.getMailMessage());
         String totalCostFromMail = mailPage.getTotalEstimatedCostMail().getText();
         mailPage.goOut();

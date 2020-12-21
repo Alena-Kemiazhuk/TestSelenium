@@ -20,6 +20,7 @@
                 <version>2.22.1</version>
 
                                 <configuration>
+                                    <forkCount>0</forkCount>
                                     <suiteXmlFiles>
                                         <suiteXmlFile>${project.basedir}/src/main/java/util/${suiteXmlFile}</suiteXmlFile>
                                     </suiteXmlFiles>
