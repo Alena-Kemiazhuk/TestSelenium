@@ -55,6 +55,11 @@ public class GoogleCloudTest {
         Assert.assertTrue(false);
     }
 
+    @Test
+    public void test(){
+        Assert.assertTrue(true);
+    }
+
     @AfterClass
     public void closeBrowser() {
         DriverSingleton.closeDriver();
