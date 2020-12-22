@@ -5,7 +5,6 @@ import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageGoogleObjectModel.driver.DriverSingleton;
@@ -27,10 +26,10 @@ public class GoogleCloudTest {
     //    String realCost = "Total Estimated Cost: USD 1,082.77 per 1 month";
     String regex = "\\s\\d.+?\\d$|\\s\\d.+?\\d\\s";
 
-    @BeforeClass
-    public void beforeAllCalculatorTests() {
-        driver = DriverSingleton.getDriver();
-    }
+//    @BeforeClass
+//    public void beforeAllCalculatorTests() {
+//        driver = DriverSingleton.getDriver();
+//    }
 
     @SneakyThrows
     @Test
