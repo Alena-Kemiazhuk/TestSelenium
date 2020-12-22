@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageGoogleObjectModel.driver.DriverSingleton;
 import pageGoogleObjectModel.service.GoogleCalculatorService;
 import pageGoogleObjectModel.service.GoogleCloudHomeService;
 import pageGoogleObjectModel.service.GoogleMailService;
@@ -60,10 +58,10 @@ public class GoogleCloudTest {
         Assert.assertTrue(true);
     }
 
-    @AfterClass
-    public void closeBrowser() {
-        DriverSingleton.closeDriver();
-    }
+//    @AfterClass
+//    public void closeBrowser() {
+//        DriverSingleton.closeDriver();
+//    }
 
 
 //    @SneakyThrows
