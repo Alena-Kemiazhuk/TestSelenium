@@ -55,7 +55,7 @@ public class GoogleCloudTest {
 
     @Test
     public void test(){
-        Assert.assertTrue(true);
+        Assert.assertTrue(false);
     }
 
 //    @AfterClass
