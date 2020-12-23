@@ -51,8 +51,10 @@ public class GoogleCalculatorService {
         calculatorPage.clickButton(calculatorPage.getButtonEmailEstimate());
     }
 
+    @SneakyThrows
     public void sendEstimateOnEmail() {
         calculatorPage.pasteEmailAddress(calculatorPage.getFieldForMailAddress());
+        Thread.sleep(2000);
         calculatorPage.clickButton(calculatorPage.getButtonSendEmail());
     }
 
