@@ -3,7 +3,10 @@ package pageGoogleObjectModel.service;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import pageGoogleObjectModel.page.GoogleMailPage;
 
 
@@ -23,7 +26,10 @@ public class GoogleMailService {
         Thread.sleep(2000);
         mailPage.goToMailPage();
         Thread.sleep(2000);
-        mailPage.clickElement(mailPage.getEmailAddress());
+//        mailPage.clickElement(mailPage.getEmailAddress());
+        Actions actionProvider = new Actions(driver);
+        Action keydown = actionProvider.keyDown(Keys.CONTROL).sendKeys("c").build();
+        keydown.perform();
         Thread.sleep(2000);
         mailPage.goOut();
         Thread.sleep(2000);
