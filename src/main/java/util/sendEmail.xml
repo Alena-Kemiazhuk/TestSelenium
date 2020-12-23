@@ -5,9 +5,9 @@
     <test name="GoogleObjectModelTest">
         <classes>
             <class name="pageGoogleObjectModel.test.GoogleCloudTest">
-<!--                <methods>-->
-<!--                    <include name="sendEmailTest"/>-->
-<!--                </methods>-->
+                <methods>
+                    <include name="sendEmailTest"/>
+                </methods>
             </class>
         </classes>
     </test>
