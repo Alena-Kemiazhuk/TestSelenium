@@ -48,8 +48,11 @@ public class GoogleCloudTest {
         googleCalculatorPageService.googleCalculatorFilling(CalculatorDataCreator.creatorCalculatorData())
                 .calculateEstimate();
         googleCalculatorPageService.emailEstimate();
+        Thread.sleep(2000);
         googleMailService.copyMailAddress();
+        Thread.sleep(2000);
         googleCalculatorPageService.sendEstimateOnEmail();
+        Thread.sleep(2000);
         String totalCostFromEmail = regexUtils
                 .getCostForCompare(googleMailService.getTotalCostFromSentEmail(), regex);
         String totalCostFromEstimate = regexUtils
