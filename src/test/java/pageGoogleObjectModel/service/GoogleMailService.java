@@ -26,6 +26,7 @@ public class GoogleMailService {
         mailPage.clickElement(mailPage.getEmailAddress());
         Thread.sleep(2000);
         mailPage.goOut();
+        Thread.sleep(2000);
     }
 
     @SneakyThrows
