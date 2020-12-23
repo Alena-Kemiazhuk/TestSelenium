@@ -18,9 +18,13 @@ public class GoogleMailService {
         mailPage = new GoogleMailPage(driver);
     }
 
+    @SneakyThrows
     public void copyMailAddress(){
+        Thread.sleep(2000);
         mailPage.goToMailPage();
+        Thread.sleep(2000);
         mailPage.clickElement(mailPage.getEmailAddress());
+        Thread.sleep(2000);
         mailPage.goOut();
     }
 
