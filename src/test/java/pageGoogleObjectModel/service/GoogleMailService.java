@@ -23,16 +23,12 @@ public class GoogleMailService {
 
     @SneakyThrows
     public void copyMailAddress(){
-        Thread.sleep(2000);
         mailPage.goToMailPage();
-        Thread.sleep(2000);
 //        mailPage.clickElement(mailPage.getEmailAddress());
         Actions actionProvider = new Actions(driver);
         Action keydown = actionProvider.keyDown(Keys.CONTROL).sendKeys("c").build();
         keydown.perform();
-        Thread.sleep(2000);
         mailPage.goOut();
-        Thread.sleep(2000);
     }
 
     @SneakyThrows
